@@ -14,7 +14,7 @@ function M.on_attach(client, buffer)
   self:map("]d", "Lspsaga diagnostic_jump_next", { desc = "Next Diagnostic" })
   self:map("[d", "Lspsaga diagnostic_jump_prev", { desc = "Prev Diagnostic" })
   self:map("<leader>dl", "Lspsaga show_line_diagnostics", { desc = "Show line diagnostics" })
-  self:map("<leader>dd", "Lspsaga show_buf_diagnostics ++normal", { desc = "Show buffer diagnostics" })
+  -- self:map("<leader>dd", "Lspsaga show_buf_diagnostics ++normal", { desc = "Show buffer diagnostics" })
   self:map("<leader>dw", "Lspsaga show_workspace_diagnostics ++normal", { desc = "Show workspace diagnostics" })
 
   local format = require("plugins.lsp.format").format

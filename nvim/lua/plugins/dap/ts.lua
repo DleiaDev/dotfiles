@@ -24,23 +24,8 @@ function M.setup()
         request = "attach",
         name = "Attach debugger to existing `node --inspect` process",
         processId = require("dap.utils").pick_process,
-        sourceMaps = true,
         resolveSourceMapLocations = { "${workspaceFolder}/**", "!**/node_modules/**" },
-        cwd = "${workspaceFolder}/resources",
         skipFiles = { "${workspaceFolder}/node_modules/**/*.js" },
-      },
-      {
-        type = "pwa-chrome",
-        request = "launch",
-        name = "Launch a browser to debug client side code",
-        url = "http://localhost",
-        sourceMaps = true,
-        webRoot = "${workspaceFolder}/resources",
-        runtimeExecutable = "/usr/bin/brave-browser-stable",
-        skipFiles = {
-          "**/node_modules/**/*",
-          "**/@vite/*",
-        },
       },
     }
   end
