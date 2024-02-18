@@ -1,59 +1,50 @@
 local M = {}
 
 function M.on_attach(client, buffer)
-  local self = M.new(client, buffer)
+  -- References (Lspsaga)
+  vim.keymap.set("n", "<leader>lf", "<cmd>Lspsaga finder<cr>", { buffer = buffer, desc = "Lspsaga finder" })
 
-  self:map("gd", "Lspsaga goto_definition", { desc = "Goto Definition" })
-  self:map("<leader>lf", "Lspsaga finder", { desc = "Lspsaga finder" })
-  self:map("<leader>lr", "Telescope lsp_references", { desc = "Telescope lsp_references" })
-  self:map("K", "Lspsaga hover_doc", { desc = "Lsp hover" })
-  self:map("gK", vim.lsp.buf.signature_help, { desc = "Signature Help", has = "signatureHelp" })
-  self:map("<leader>ca", "Lspsaga code_action", { desc = "Code Action", mode = { "n", "v" }, has = "codeAction" })
-  self:map("<leader>lp", "Lspsaga peek_definition", { desc = "Peak defintion" })
+  -- References (Telescope)
+  vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references<cr>", { buffer = buffer, desc = "Telescope lsp_references" })
 
-  self:map("]d", "Lspsaga diagnostic_jump_next", { desc = "Next Diagnostic" })
-  self:map("[d", "Lspsaga diagnostic_jump_prev", { desc = "Prev Diagnostic" })
-  self:map("<leader>dl", "Lspsaga show_line_diagnostics", { desc = "Show line diagnostics" })
+  -- Hover
+  vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", { buffer = buffer, desc = "Lspsaga hover_doc" })
+
+  -- Signature help
+  if client.server_capabilities.signatureHelpProvider then
+    vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, { buffer = buffer, desc = "LSP signature help" })
+  end
+
+  -- Code action
+  if client.server_capabilities.codeActionProvider then
+    vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", { buffer = buffer, desc = "Lspsaga code_action" })
+  end
+
+  -- Peek definition
+  vim.keymap.set("n", "<leader>lp", "<cmd>Lspsaga peek_definition<cr>", { buffer = buffer, desc = "Lspsaga peek_definition" })
+
+  -- Diagnostics
+  vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", { buffer = buffer, desc = "Next diagnostic" })
+  vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { buffer = buffer, desc = "Prev diagnostic" })
+  vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<cr>", { buffer = buffer, desc = "Show line diagnostics" })
   -- self:map("<leader>dd", "Lspsaga show_buf_diagnostics ++normal", { desc = "Show buffer diagnostics" })
-  self:map("<leader>dw", "Lspsaga show_workspace_diagnostics ++normal", { desc = "Show workspace diagnostics" })
+  vim.keymap.set("n", "<leader>dw", "Lspsaga show_workspace_diagnostics ++normal", { desc = "Show workspace diagnostics" })
 
+  -- Formatting
   local format = require("plugins.lsp.format").format
-  self:map("<leader>cf", format, { desc = "Format Document", has = "documentFormatting" })
-  self:map("<leader>cf", format, { desc = "Format Range", mode = "v", has = "documentRangeFormatting" })
-  self:map("<leader>R", M.rename, { expr = true, desc = "Rename", has = "rename" })
-
-  self:map("<leader>cs", require("telescope.builtin").lsp_document_symbols, { desc = "Document Symbols" })
-  self:map("<leader>cS", require("telescope.builtin").lsp_dynamic_workspace_symbols, { desc = "Workspace Symbols" })
-end
-
-function M.new(client, buffer)
-  return setmetatable({ client = client, buffer = buffer }, { __index = M })
-end
-
-function M:has(cap)
-  return self.client.server_capabilities[cap .. "Provider"]
-end
-
-function M:map(lhs, rhs, opts)
-  opts = opts or {}
-  if opts.has and not self:has(opts.has) then
-    return
+  if client.server_capabilities.documentFormattingProvider then
+    vim.keymap.set("n", "<leader>cf", format, { buffer = buffer, desc = "LSP format document" })
   end
-  vim.keymap.set(
-    opts.mode or "n",
-    lhs,
-    type(rhs) == "string" and ("<cmd>%s<cr>"):format(rhs) or rhs,
-    ---@diagnostic disable-next-line: no-unknown
-    { silent = true, buffer = self.buffer, expr = opts.expr, desc = opts.desc }
-  )
-end
-
-function M.rename()
-  if pcall(require, "inc_rename") then
-    return ":IncRename " .. vim.fn.expand "<cword>"
-  else
-    vim.lsp.buf.rename()
+  if client.server_capabilities.documentRangeFormattingProvider then
+    vim.keymap.set("v", "<leader>cf", format, { buffer = buffer, desc = "LSP format range" })
   end
+
+  -- Rename
+  vim.keymap.set("n", "<leader>R", ":IncRename ", { buffer = buffer, desc = "IncRename" })
+
+  -- Symbols
+  vim.keymap.set("n", "<leader>cs", require("telescope.builtin").lsp_document_symbols, { desc = "Telescope document symbols" })
+  vim.keymap.set("n", "<leader>cS", require("telescope.builtin").lsp_dynamic_workspace_symbols, { desc = "Telescope document symbols" })
 end
 
 return M

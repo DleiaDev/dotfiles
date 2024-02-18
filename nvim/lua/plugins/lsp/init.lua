@@ -22,51 +22,15 @@ return {
         },
       },
     },
-    opts = {
-      servers = {
-        volar = {
-          filetypes = { "typescript", "vue" }, -- Actives "Take Over Mode"
-        },
-        bashls = {},
-        eslint = {},
-        intelephense = {},
-        tsserver = {
-          disabled = true, -- Volar "Take Over Mode"
-          disable_formatting = false,
-        },
-        lua_ls = {
-          settings = {
-            Lua = {
-              workspace = {
-                checkThirdParty = false,
-              },
-              completion = { callSnippet = "Replace" },
-              telemetry = { enable = false },
-              hint = {
-                enable = false,
-              },
-            },
-          },
-        },
-        dockerls = {},
-      },
-      setup = {
-        lua_ls = function()
-          local lsp_utils = require "plugins.lsp.utils"
-          lsp_utils.on_attach(function(client, buffer)
-            -- stylua: ignore
-            if client.name == "lua_ls" then
-              vim.keymap.set("n", "<leader>dX", function() require("osv").run_this() end, { buffer = buffer, desc = "OSV run" })
-              vim.keymap.set("n", "<leader>dL", function() require("osv").launch({ port = 8086 }) end, { buffer = buffer, desc = "OSV Launch" })
-            end
-          end)
-        end,
-      },
-    },
-    config = function(_, opts)
+    config = function()
+      local lsp_utils = require "plugins.lsp.utils"
       require("plugins.lsp.diagnostics").setup()
       require("plugins.lsp.handlers").setup()
-      require("plugins.lsp.servers").setup(opts)
+      require("plugins.lsp.servers").setup()
+      lsp_utils.on_attach(function(client, buffer)
+        require("plugins.lsp.format").on_attach(client, buffer)
+        require("plugins.lsp.keymaps").on_attach(client, buffer)
+      end)
     end,
   },
   {
