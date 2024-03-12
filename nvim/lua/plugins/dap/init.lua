@@ -9,13 +9,13 @@ local M = {
       "Joakker/lua-json5",
       build = "./install.sh",
     },
-    {
-      "mxsdev/nvim-dap-vscode-js",
-      dependencies = {
-        "microsoft/vscode-js-debug",
-        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-      },
-    },
+    --{
+    --  "mxsdev/nvim-dap-vscode-js",
+    --  dependencies = {
+    --    "microsoft/vscode-js-debug",
+    --    build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+    --  },
+    --},
   },
   -- stylua: ignore
   keys = {
