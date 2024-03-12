@@ -21,7 +21,10 @@ return {
       "vim",
       "yaml",
       "php",
+      "phpdoc",
       "vue",
+      "scss",
+      "css",
     },
     highlight = {
       enable = true,
