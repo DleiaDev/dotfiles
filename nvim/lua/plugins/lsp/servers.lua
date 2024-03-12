@@ -43,7 +43,7 @@ M.servers = {
 }
 
 function M.setup()
-  local servers = M.servers
+  local servers = M.servers.servers
   local lsp_utils = require "plugins.lsp.utils"
 
   require("mason-lspconfig").setup { ensure_installed = vim.tbl_keys(servers) }
@@ -54,12 +54,12 @@ function M.setup()
         return
       end
       server_opts.capabilities = lsp_utils.lsp_capabilities()
-      if servers.setup[server] then
-        if servers.setup[server](server, server_opts) then
+      if M.servers.setup[server] then
+        if M.servers.setup[server](server, server_opts) then
           return
         end
-      elseif servers.setup["*"] then
-        if servers.setup["*"](server, server_opts) then
+      elseif M.servers.setup["*"] then
+        if M.servers.setup["*"](server, server_opts) then
           return
         end
       end
