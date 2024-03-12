@@ -1,4 +1,3 @@
-vcs
 snippets
 unit testing
 legendary
