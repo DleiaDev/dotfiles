@@ -14,6 +14,7 @@ return {
       "dockerfile",
       "html",
       "lua",
+      "vimdoc",
       "markdown", -- Needed by Lspsaga hover_doc
       "markdown_inline", -- Needed by Lspsaga hover_doc
       "query",
