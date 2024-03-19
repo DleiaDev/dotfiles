@@ -9,6 +9,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
+      "stevearc/conform.nvim",
       {
         "folke/neodev.nvim",
         opts = {
@@ -23,54 +24,16 @@ return {
       },
     },
     config = function()
-      local lsp_utils = require "plugins.lsp.utils"
       require("plugins.lsp.diagnostics").setup()
       require("plugins.lsp.handlers").setup()
       require("plugins.lsp.servers").setup()
-      lsp_utils.on_attach(function(client, buffer)
-        require("plugins.lsp.format").on_attach(client, buffer)
-        require("plugins.lsp.keymaps").on_attach(client, buffer)
-      end)
-    end,
-  },
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = {
-      { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
-    },
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "ruff",
-        "debugpy",
-      },
-    },
-    config = function(_, opts)
-      require("mason").setup()
-      local mr = require "mason-registry"
-      for _, tool in ipairs(opts.ensure_installed) do
-        local p = mr.get_package(tool)
-        if not p:is_installed() then
-          p:install()
-        end
-      end
-    end,
-  },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
-    dependencies = {
-      "mason.nvim",
-    },
-    config = function()
-      local nls = require "null-ls"
-      nls.setup {
-        sources = {
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.prettierd,
-        },
-      }
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          require("plugins.lsp.keymaps").setup(client, bufnr)
+        end,
+      })
     end,
   },
   {
@@ -90,6 +53,22 @@ return {
     opts = {
       symbol_in_winbar = {
         enable = false, -- barbece.nvim is much better
+      },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        php = { { "pint", "php_cs_fixer" } },
+        vue = { "prettierd" },
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+      },
+      format_on_save = {
+        timeout_ms = 3000,
+        lsp_fallback = true,
       },
     },
   },

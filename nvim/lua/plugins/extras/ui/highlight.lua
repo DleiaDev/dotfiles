@@ -26,7 +26,7 @@ return {
         local clients = vim.lsp.get_active_clients { bufnr = bufnr }
         for _, client in pairs(clients) do
           local capabilities = client.capabilities
-          if client.name ~= "null-ls" and capabilities and capabilities.semanticTokensProvider and capabilities.semanticTokensProvider.full then
+          if capabilities and capabilities.semanticTokensProvider and capabilities.semanticTokensProvider.full then
             vim.b.semantic_tokens = true
             return vim.b.semantic_tokens
           end

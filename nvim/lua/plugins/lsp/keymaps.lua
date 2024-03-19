@@ -1,6 +1,6 @@
 local M = {}
 
-function M.on_attach(client, buffer)
+function M.setup(client, buffer)
   -- References (Lspsaga)
   vim.keymap.set("n", "<leader>lf", "<cmd>Lspsaga finder<cr>", { buffer = buffer, desc = "Lspsaga finder" })
 
@@ -25,19 +25,19 @@ function M.on_attach(client, buffer)
 
   -- Diagnostics
   vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", { buffer = buffer, desc = "Next diagnostic" })
-  vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { buffer = buffer, desc = "Prev diagnostic" })
+  vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { buffer = buffer, desc = "Prev diagnostic" })
   vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<cr>", { buffer = buffer, desc = "Show line diagnostics" })
   -- self:map("<leader>dd", "Lspsaga show_buf_diagnostics ++normal", { desc = "Show buffer diagnostics" })
   vim.keymap.set("n", "<leader>dw", "Lspsaga show_workspace_diagnostics ++normal", { desc = "Show workspace diagnostics" })
 
   -- Formatting
-  local format = require("plugins.lsp.format").format
-  if client.server_capabilities.documentFormattingProvider then
-    vim.keymap.set("n", "<leader>cf", format, { buffer = buffer, desc = "LSP format document" })
-  end
-  if client.server_capabilities.documentRangeFormattingProvider then
-    vim.keymap.set("v", "<leader>cf", format, { buffer = buffer, desc = "LSP format range" })
-  end
+  -- local format = require("plugins.lsp.format").format
+  -- if client.server_capabilities.documentFormattingProvider then
+  --   vim.keymap.set("n", "<leader>cf", format, { buffer = buffer, desc = "LSP format document" })
+  -- end
+  -- if client.server_capabilities.documentRangeFormattingProvider then
+  --   vim.keymap.set("v", "<leader>cf", format, { buffer = buffer, desc = "LSP format range" })
+  -- end
 
   -- Rename
   vim.keymap.set("n", "<leader>R", ":IncRename ", { buffer = buffer, desc = "IncRename" })

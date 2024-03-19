@@ -58,23 +58,21 @@ return {
       local buf_ft = vim.bo.filetype
       local buf_client_names = {}
 
-      -- add client
+      -- add clients
       for _, client in pairs(buf_clients) do
-        if client.name ~= "null-ls" then
-          table.insert(buf_client_names, client.name)
-        end
+        table.insert(buf_client_names, client.name)
       end
 
-      -- add formatter
+      -- add formatters
       local lsp_utils = require "plugins.lsp.utils"
       local formatters = lsp_utils.list_formatters(buf_ft)
       vim.list_extend(buf_client_names, formatters)
 
-      -- add linter
+      -- add linters
       local linters = lsp_utils.list_linters(buf_ft)
       vim.list_extend(buf_client_names, linters)
 
-      -- add hover
+      -- add hovers
       local hovers = lsp_utils.list_hovers(buf_ft)
       vim.list_extend(buf_client_names, hovers)
 
