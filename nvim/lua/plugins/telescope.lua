@@ -3,6 +3,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-fzy-native.nvim",
+      "benfowler/telescope-luasnip.nvim",
     },
     cmd = "Telescope",
     keys = {
@@ -79,6 +80,7 @@ return {
       }
 
       telescope.load_extension "fzy_native"
+      telescope.load_extension "luasnip"
     end,
   },
 }
