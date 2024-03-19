@@ -11,7 +11,7 @@ return {
     },
     config = function()
       local cmp = require "cmp"
-      local luasnip = require "luasnip"
+      local ls = require "luasnip"
       local icons = require "config.icons"
 
       local has_words_before = function()
@@ -37,8 +37,8 @@ return {
           ["<c-j>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
+            elseif ls.expand_or_jumpable() then
+              ls.expand_or_jump()
             elseif has_words_before() then
               cmp.complete()
             else
@@ -48,8 +48,8 @@ return {
           ["<c-k>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
+            elseif ls.jumpable(-1) then
+              ls.jump(-1)
             else
               fallback()
             end
@@ -112,26 +112,47 @@ return {
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
-      "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
+      {
+        "rafamadriz/friendly-snippets",
+        config = function()
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+      },
+      {
+        "honza/vim-snippets",
+        config = function()
+          require("luasnip.loaders.from_snipmate").lazy_load()
+          require("luasnip").filetype_extend("all", { "_" })
+        end,
+      },
     },
-    config = {
+    opts = {
       history = true,
-      delete_check_events = "TextChanged",
+      --updateevents = "TextChanged,TextChangedI",
+      --enable_autosnippets = true,
+      --delete_check_events = "TextChanged",
     },
     -- stylua: ignore
     keys = {
       {
-        '<tab>',
+        "<c-j>",
         function()
-          return require('luasnip').jumpable(1) and '<Plug>luasnip-jump-next' or '<tab>'
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<c-j>"
         end,
-        expr = true, remap = true, silent = true, mode = 'i',
+        expr = true, remap = true, silent = true, mode = "i",
       },
-      { '<tab>', function() require('luasnip').jump(1) end, mode = 's' },
-      { '<s-tab>', function() require('luasnip').jump(-1) end, mode = { 'i', 's' } },
+      { "<c-j>", function() require("luasnip").jump(1) end, mode = "s" },
+      { "<c-k>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
     },
+    config = function(_, opts)
+      require("luasnip").setup(opts)
+
+      local snippets_folder = vim.fn.stdpath "config" .. "/lua/plugins/completion/snippets/"
+      require("luasnip.loaders.from_lua").lazy_load { paths = snippets_folder }
+
+      vim.api.nvim_create_user_command("LuaSnipEdit", function()
+        require("luasnip.loaders.from_lua").edit_snippet_files()
+      end, {})
+    end,
   },
 }
