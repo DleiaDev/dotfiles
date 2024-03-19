@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>gl", require("utils.tools").lazygit, { desc = "Lazygit" })
+vim.keymap.set("n", "<leader>gl", require("util.tools").lazygit, { desc = "Lazygit" })
 
 return {
   {

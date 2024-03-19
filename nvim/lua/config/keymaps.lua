@@ -53,8 +53,8 @@ keymap("n", "<leader>w", "<cmd>w<cr>")
 -- Quit current buffer
 keymap("n", "<leader>q", "<cmd>q<cr>")
 
-keymap("n", "<leader>sc", require("utils.tools").cht, { desc = "cht.sh" })
-keymap("n", "<leader>st", require("utils.tools").tokei, { desc = "Tokei" })
-keymap("n", "<leader>sb", require("utils.tools").bottom, { desc = "Bottom" })
-keymap("n", "<leader>sd", require("utils.tools").lazydocker, { desc = "Lazydocker" })
-keymap("n", "<leader>ss", require("utils.tools").stack_overflow, { desc = "Stack Overflow" })
+keymap("n", "<leader>sc", require("util.tools").cht, { desc = "cht.sh" })
+keymap("n", "<leader>st", require("util.tools").tokei, { desc = "Tokei" })
+keymap("n", "<leader>sb", require("util.tools").bottom, { desc = "Bottom" })
+keymap("n", "<leader>sd", require("util.tools").lazydocker, { desc = "Lazydocker" })
+keymap("n", "<leader>ss", require("util.tools").stack_overflow, { desc = "Stack Overflow" })

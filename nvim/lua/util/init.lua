@@ -1,5 +1,9 @@
 local M = {}
 
+function M.setup()
+  require("util.plugin").setup()
+end
+
 function M.quit()
   local bufnr = vim.api.nvim_get_current_buf()
   local buf_windows = vim.call("win_findbuf", bufnr)
