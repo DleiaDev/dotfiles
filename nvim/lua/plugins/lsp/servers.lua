@@ -2,15 +2,25 @@ local M = {}
 
 M.servers = {
   servers = {
-    volar = {
-      filetypes = { "typescript", "vue" }, -- Activates "Take Over Mode"
-    },
+    volar = {},
     bashls = {},
-    eslint = {},
     intelephense = {},
     tsserver = {
-      disabled = true, -- Volar "Take Over Mode"
-      disable_formatting = false,
+      init_options = {
+        plugins = {
+          -- npm i -g @vue/typescript-plugin
+          {
+            name = "@vue/typescript-plugin",
+            location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+            languages = { "javascript", "typescript", "vue" },
+          },
+        },
+      },
+      filetypes = {
+        "javascript",
+        "typescript",
+        "vue",
+      },
     },
     lua_ls = {
       settings = {
