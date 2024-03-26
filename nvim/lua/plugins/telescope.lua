@@ -26,6 +26,10 @@ return {
           dynamic_preview_title = true,
           results_title = false,
           sorting_strategy = "ascending",
+          file_ignore_patterns = {
+            "vendor",
+            "node_modules",
+          },
           layout_config = {
             horizontal = {
               prompt_position = "top",
