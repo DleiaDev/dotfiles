@@ -13,4 +13,20 @@ return {
       -- To be continued
     },
   },
+  {
+    "OlegGulevskyy/better-ts-errors.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    keys = {
+      "<leader>as",
+      "<leader>ax",
+    },
+    opts = {
+      keymaps = {
+        toggle = "<leader>as",
+        go_to_definition = "<leader>ax",
+      },
+    },
+  },
 }
