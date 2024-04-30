@@ -4,7 +4,7 @@ sudo dnf install -y \
   cmake \
   expat-devel fontconfig-devel libxcb-devel \
   freetype-devel libxml2-devel \
-  harfbuzz
+  harfbuzz && \
 cargo install silicon
 ```
 
