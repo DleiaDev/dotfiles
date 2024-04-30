@@ -14,9 +14,12 @@ return {
       },
       linters_by_ft = {
         lua = { "selene" },
-        vue = { "eslint_d" },
-        javascript = { "eslint_d" },
-        typescript = { "eslint_d" },
+        vue = { "eslint" },
+        javascript = { "eslint" },
+        typescript = { "eslint" },
+        -- vue = { "eslint_d" },
+        -- javascript = { "eslint_d" },
+        -- typescript = { "eslint_d" },
       },
       linters = {
         selene = {
@@ -24,6 +27,11 @@ return {
             return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
           end,
         },
+        -- eslint_d = {
+        --   env = {
+        --     ESLINT_USE_FLAT_CONFIG = "true",
+        --   },
+        -- },
       },
     },
     config = function(_, opts)
