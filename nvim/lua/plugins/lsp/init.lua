@@ -22,11 +22,19 @@ return {
           },
         },
       },
+      servers = {
+        bashls = {},
+        intelephense = {},
+        dockerls = {},
+      },
+      setup = {
+        --
+      },
     },
-    config = function()
+    config = function(_, opts)
       require("plugins.lsp.diagnostics").setup()
       require("plugins.lsp.handlers").setup()
-      require("plugins.lsp.servers").setup()
+      require("plugins.lsp.servers").setup(opts)
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local bufnr = args.buf

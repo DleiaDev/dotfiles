@@ -1,59 +1,8 @@
 local M = {}
 
-M.servers = {
-  servers = {
-    volar = {},
-    bashls = {},
-    intelephense = {},
-    tsserver = {
-      init_options = {
-        plugins = {
-          -- npm i -g @vue/typescript-plugin
-          {
-            name = "@vue/typescript-plugin",
-            location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-            languages = { "javascript", "typescript", "vue" },
-          },
-        },
-      },
-      filetypes = {
-        "javascript",
-        "typescript",
-        "vue",
-      },
-    },
-    lua_ls = {
-      settings = {
-        Lua = {
-          workspace = {
-            checkThirdParty = false,
-          },
-          completion = { callSnippet = "Replace" },
-          telemetry = { enable = false },
-          hint = {
-            enable = false,
-          },
-        },
-      },
-    },
-    dockerls = {},
-  },
-  setup = {
-    lua_ls = function()
-      local lsp_utils = require "plugins.lsp.utils"
-      lsp_utils.on_attach(function(client, buffer)
-            -- stylua: ignore
-            if client.name == "lua_ls" then
-              vim.keymap.set("n", "<leader>dX", function() require("osv").run_this() end, { buffer = buffer, desc = "OSV run" })
-              vim.keymap.set("n", "<leader>dL", function() require("osv").launch({ port = 8086 }) end, { buffer = buffer, desc = "OSV Launch" })
-            end
-      end)
-    end,
-  },
-}
-
-function M.setup()
-  local servers = M.servers.servers
+function M.setup(opts)
+  vim.print(opts)
+  local servers = opts.servers
   local lsp_utils = require "plugins.lsp.utils"
 
   require("mason-lspconfig").setup { ensure_installed = vim.tbl_keys(servers) }
@@ -64,12 +13,12 @@ function M.setup()
         return
       end
       server_opts.capabilities = lsp_utils.lsp_capabilities()
-      if M.servers.setup[server] then
-        if M.servers.setup[server](server, server_opts) then
+      if opts.setup[server] then
+        if opts.setup[server](server, server_opts) then
           return
         end
-      elseif M.servers.setup["*"] then
-        if M.servers.setup["*"](server, server_opts) then
+      elseif opts.setup["*"] then
+        if opts.setup["*"](server, server_opts) then
           return
         end
       end
