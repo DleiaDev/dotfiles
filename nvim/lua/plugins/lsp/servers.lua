@@ -1,7 +1,6 @@
 local M = {}
 
 function M.setup(opts)
-  vim.print(opts)
   local servers = opts.servers
   local lsp_utils = require "plugins.lsp.utils"
 

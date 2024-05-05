@@ -20,6 +20,9 @@ function M.setup(client, buffer)
     vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", { buffer = buffer, desc = "Lspsaga code_action" })
   end
 
+  -- Go to definition
+  vim.keymap.set("n", "<C-]>", vim.lsp.buf.definition, { buffer = buffer, desc = "LSP go to definition" })
+
   -- Peek definition
   vim.keymap.set("n", "<leader>lp", "<cmd>Lspsaga peek_definition<cr>", { buffer = buffer, desc = "Lspsaga peek_definition" })
 
