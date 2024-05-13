@@ -20,6 +20,7 @@ require("lazy").setup {
     { import = "plugins" },
     { import = "plugins.extras.ui" },
     { import = "plugins.extras.lang" },
+    { import = "plugins.extras.editor" },
   },
   defaults = {
     lazy = true,
