@@ -1,15 +1,20 @@
+-- Check if we need to reload a file when it changed
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = vim.api.nvim_create_augroup("checktime", { clear = true }),
+  callback = function()
+    if vim.bo.filetype ~= "nofile" then
+      vim.cmd "checktime"
+    end
+  end,
+})
+
 -- Highlight on yank
-local yankGroup = vim.api.nvim_create_augroup("HighlightOnYank", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
-  group = yankGroup,
+  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
   callback = function()
     vim.highlight.on_yank()
   end,
 })
-
--- Check if we need to reload a file when it changed
-vim.api.nvim_create_autocmd("FocusGained", { command = "checktime" })
 
 -- Go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
