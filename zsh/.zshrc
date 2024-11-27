@@ -26,3 +26,6 @@ alias luamake=/home/marko/.local/share/nvim/external/lua-language-server/3rd/lua
 
 # flyctl
 alias flyctl=/home/marko/.fly/bin/flyctl
+
+# wezterm (flatpak, fedora)
+alias wezterm='flatpak run org.wezfurlong.wezterm'
