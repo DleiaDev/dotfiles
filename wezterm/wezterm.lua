@@ -23,10 +23,31 @@ local function scheme_for_appearance(appearance)
 	end
 end
 
+-- Colors
 config.color_scheme = scheme_for_appearance(get_appearance())
+config.colors = {
+	tab_bar = {
+		background = "none",
+	},
+}
+
 config.font = wezterm.font_with_fallback({
-	{ family = "JetBrainsMono NF", scale = 1.2 },
+	{ family = "JetBrainsMono NF", scale = 1.27, weight = "Medium" },
+	-- { family = ... }
 })
-config.window_background_opacity = 0.9
+
+-- Tab
+config.use_fancy_tab_bar = false
+config.hide_tab_bar_if_only_one_tab = true
+config.tab_bar_at_bottom = true
+
+-- Window
+config.window_decorations = "RESIZE"
+config.window_padding = {
+	left = 0,
+	right = 0,
+	top = 0,
+	bottom = 0,
+}
 
 return config
