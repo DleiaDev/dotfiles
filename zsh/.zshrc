@@ -8,7 +8,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH="$HOME/bin:$PATH"
 
 # nvim
-NVIM=/home/marko/bin/nvim-0.10.2/bin/nvim
+NVIM=/home/marko/bin/nvim-0.10.3/bin/nvim
 alias nvim=$NVIM
 export EDITOR=$NVIM
 export VISUAL=$NVIM
