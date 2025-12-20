@@ -3,3 +3,4 @@
 -- Add any additional options here
 
 vim.g.lazyvim_php_lsp = "intelephense"
+vim.opt.foldmethod = "manual"
