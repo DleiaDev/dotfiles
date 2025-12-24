@@ -1,0 +1,413 @@
+[profiles.postgres]
+keymap_name = ["vim"]
+theme = "tokyo-night"
+limit = 100
+adapter = "postgres"
+user = "auvaria"
+password = "auvaria"
+host = "localhost"
+port = 5432
+dbname = "acmp"
+
+[[keymaps.vim]]
+keys = "ctrl+q"
+action = "quit"
+
+[[keymaps.vim]]
+keys = "f1"
+action = "help"
+
+[[keymaps.vim]]
+keys = "tab"
+action = "focus_next"
+
+[[keymaps.vim]]
+keys = "shift+tab"
+action = "focus_previous"
+
+[[keymaps.vim]]
+keys = "ctrl+k,ctrl+l"
+action = "focus_query_editor"
+
+[[keymaps.vim]]
+keys = "ctrl+j"
+action = "focus_results_viewer"
+
+[[keymaps.vim]]
+# keys = "f6"
+keys = "ctrl+h"
+action = "focus_data_catalog"
+
+[[keymaps.vim]]
+keys = "ctrl+b,f9"
+action = "toggle_sidebar"
+
+[[keymaps.vim]]
+keys = "f10"
+action = "toggle_full_screen"
+
+[[keymaps.vim]]
+keys = "f12"
+action = "show_debug_info"
+
+[[keymaps.vim]]
+keys = "f8"
+action = "show_query_history"
+
+[[keymaps.vim]]
+keys = "ctrl+e"
+action = "show_data_exporter"
+
+[[keymaps.vim]]
+keys = "ctrl+r"
+action = "refresh_catalog"
+
+[[keymaps.vim]]
+keys = "ctrl+n"
+action = "code_editor.new_buffer"
+
+[[keymaps.vim]]
+keys = "???"
+action = "code_editor.close_buffer"
+
+[[keymaps.vim]]
+keys = "ctrl+]"
+action = "code_editor.next_buffer"
+
+[[keymaps.vim]]
+keys = "ctrl+enter"
+action = "code_editor.run_query"
+key_display = "^⏎ or ^j"
+
+[[keymaps.vim]]
+keys = "f4"
+action = "code_editor.format_buffer"
+
+[[keymaps.vim]]
+keys = "ctrl+s"
+action = "code_editor.save_buffer"
+
+[[keymaps.vim]]
+keys = "ctrl+o"
+action = "code_editor.load_buffer"
+
+[[keymaps.vim]]
+keys = "ctrl+f"
+action = "code_editor.find"
+
+[[keymaps.vim]]
+keys = "f3"
+action = "code_editor.find_next"
+
+[[keymaps.vim]]
+keys = "ctrl+g"
+action = "code_editor.goto_line"
+
+[[keymaps.vim]]
+keys = "k"
+action = "code_editor.cursor_up"
+
+[[keymaps.vim]]
+keys = "ctrl+j"
+action = "code_editor.cursor_down"
+
+[[keymaps.vim]]
+keys = "left"
+action = "code_editor.cursor_left"
+
+[[keymaps.vim]]
+keys = "right"
+action = "code_editor.cursor_right"
+
+[[keymaps.vim]]
+keys = "ctrl+left"
+action = "code_editor.cursor_word_left"
+
+[[keymaps.vim]]
+keys = "ctrl+right"
+action = "code_editor.cursor_word_right"
+
+[[keymaps.vim]]
+keys = "home"
+action = "code_editor.cursor_line_start"
+
+[[keymaps.vim]]
+keys = "end"
+action = "code_editor.cursor_line_end"
+
+[[keymaps.vim]]
+keys = "ctrl+home"
+action = "code_editor.cursor_doc_start"
+
+[[keymaps.vim]]
+keys = "ctrl+end"
+action = "code_editor.cursor_doc_end"
+
+[[keymaps.vim]]
+keys = "pageup"
+action = "code_editor.cursor_page_up"
+
+[[keymaps.vim]]
+keys = "pagedown"
+action = "code_editor.cursor_page_down"
+
+[[keymaps.vim]]
+keys = "shift+up"
+action = "code_editor.select_up"
+
+[[keymaps.vim]]
+keys = "shift+down"
+action = "code_editor.select_down"
+
+[[keymaps.vim]]
+keys = "shift+left"
+action = "code_editor.select_left"
+
+[[keymaps.vim]]
+keys = "shift+right"
+action = "code_editor.select_right"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+left"
+action = "code_editor.select_word_left"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+right"
+action = "code_editor.select_word_right"
+
+[[keymaps.vim]]
+keys = "shift+home"
+action = "code_editor.select_line_start"
+
+[[keymaps.vim]]
+keys = "shift+end"
+action = "code_editor.select_line_end"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+home"
+action = "code_editor.select_doc_start"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+end"
+action = "code_editor.select_doc_end"
+
+[[keymaps.vim]]
+keys = "ctrl+a"
+action = "code_editor.select_all"
+
+[[keymaps.vim]]
+keys = "ctrl+up"
+action = "code_editor.scroll_up_one"
+
+[[keymaps.vim]]
+keys = "ctrl+down"
+action = "code_editor.scroll_down_one"
+
+[[keymaps.vim]]
+keys = "ctrl+underscore"
+action = "code_editor.toggle_comment"
+
+[[keymaps.vim]]
+keys = "ctrl+x"
+action = "code_editor.cut"
+
+[[keymaps.vim]]
+keys = "ctrl+c"
+action = "code_editor.copy"
+
+[[keymaps.vim]]
+keys = "ctrl+u,ctrl+v,shift+insert"
+action = "code_editor.paste"
+
+[[keymaps.vim]]
+keys = "ctrl+z"
+action = "code_editor.undo"
+
+[[keymaps.vim]]
+keys = "ctrl+y"
+action = "code_editor.redo"
+
+[[keymaps.vim]]
+keys = "backspace"
+action = "code_editor.delete_left"
+
+[[keymaps.vim]]
+keys = "delete"
+action = "code_editor.delete_right"
+
+[[keymaps.vim]]
+keys = "shift+delete"
+action = "code_editor.delete_line"
+
+[[keymaps.vim]]
+keys = "j"
+action = "data_catalog.previous_tab"
+
+[[keymaps.vim]]
+keys = "k"
+action = "data_catalog.next_tab"
+
+[[keymaps.vim]]
+keys = "ctrl+enter"
+action = "data_catalog.insert_name"
+key_display = "^⏎ or ^j"
+
+[[keymaps.vim]]
+keys = "ctrl+c"
+action = "data_catalog.copy_name"
+
+[[keymaps.vim]]
+keys = "enter"
+action = "data_catalog.select_cursor"
+
+[[keymaps.vim]]
+keys = "space"
+action = "data_catalog.toggle_node"
+
+[[keymaps.vim]]
+keys = "k"
+action = "data_catalog.cursor_up"
+
+[[keymaps.vim]]
+keys = "j"
+action = "data_catalog.cursor_down"
+
+[[keymaps.vim]]
+keys = "full_stop"
+action = "data_catalog.show_context_menu"
+
+[[keymaps.vim]]
+keys = "escape"
+action = "data_catalog.hide_context_menu"
+
+[[keymaps.vim]]
+keys = "j"
+action = "results_viewer.previous_tab"
+
+[[keymaps.vim]]
+keys = "k"
+action = "results_viewer.next_tab"
+
+[[keymaps.vim]]
+keys = "ctrl+c"
+action = "results_viewer.copy_selection"
+
+[[keymaps.vim]]
+keys = "enter"
+action = "results_viewer.select_cursor"
+
+[[keymaps.vim]]
+keys = "k"
+action = "results_viewer.cursor_up"
+
+[[keymaps.vim]]
+keys = "j"
+action = "results_viewer.cursor_down"
+
+[[keymaps.vim]]
+keys = "left"
+action = "results_viewer.cursor_left"
+
+[[keymaps.vim]]
+keys = "right"
+action = "results_viewer.cursor_right"
+
+[[keymaps.vim]]
+keys = "ctrl+left"
+action = "results_viewer.cursor_row_start"
+
+[[keymaps.vim]]
+keys = "ctrl+right"
+action = "results_viewer.cursor_row_end"
+
+[[keymaps.vim]]
+keys = "ctrl+up,home"
+action = "results_viewer.cursor_column_start"
+
+[[keymaps.vim]]
+keys = "ctrl+down,end"
+action = "results_viewer.cursor_column_end"
+
+[[keymaps.vim]]
+keys = "tab"
+action = "results_viewer.cursor_next_cell"
+
+[[keymaps.vim]]
+keys = "shift+tab"
+action = "results_viewer.cursor_previous_cell"
+
+[[keymaps.vim]]
+keys = "pageup"
+action = "results_viewer.cursor_page_up"
+
+[[keymaps.vim]]
+keys = "pagedown"
+action = "results_viewer.cursor_page_down"
+
+[[keymaps.vim]]
+keys = "ctrl+home"
+action = "results_viewer.cursor_table_start"
+
+[[keymaps.vim]]
+keys = "ctrl+end"
+action = "results_viewer.cursor_table_end"
+
+[[keymaps.vim]]
+keys = "shift+up"
+action = "results_viewer.select_up"
+
+[[keymaps.vim]]
+keys = "shift+down"
+action = "results_viewer.select_down"
+
+[[keymaps.vim]]
+keys = "shift+left"
+action = "results_viewer.select_left"
+
+[[keymaps.vim]]
+keys = "shift+right"
+action = "results_viewer.select_right"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+left"
+action = "results_viewer.select_row_start"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+right"
+action = "results_viewer.select_row_end"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+up,shift+home"
+action = "results_viewer.select_column_start"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+down,shift+end"
+action = "results_viewer.select_column_end"
+
+[[keymaps.vim]]
+keys = "shift+pageup"
+action = "results_viewer.select_page_up"
+
+[[keymaps.vim]]
+keys = "shift+pagedown"
+action = "results_viewer.select_page_down"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+home"
+action = "results_viewer.select_table_start"
+
+[[keymaps.vim]]
+keys = "ctrl+shift+end"
+action = "results_viewer.select_table_end"
+
+[[keymaps.vim]]
+keys = "ctrl+a"
+action = "results_viewer.select_all"
+
+[[keymaps.vim]]
+keys = "enter"
+action = "history_screen.select_query"
+
+[[keymaps.vim]]
+keys = "escape"
+action = "history_screen.cancel"
