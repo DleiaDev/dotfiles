@@ -4,34 +4,7 @@ local wezterm = require("wezterm")
 ---@type Config
 local config = wezterm.config_builder()
 
----@return "Light" | "Dark"
-local function get_appearance()
-	-- wezterm.gui is not available to the mux server
-	if wezterm.gui then
-		return wezterm.gui.get_appearance()
-	end
-	return "Dark"
-end
-
----@param appearance "Light" | "Dark"
----@return string
-local function get_color_scheme(appearance)
-	return "Tokyo Night Day"
-	-- if appearance == "Light" then
-	-- 	return "Tokyo Night"
-	-- else
-	-- 	return "Tokyo Night Day"
-	-- end
-end
-
--- Colors
-config.color_scheme = get_color_scheme(get_appearance())
-local scheme = wezterm.get_builtin_color_schemes()[config.color_scheme] ---@type Palette
-scheme.tab_bar.background = "none"
-scheme.tab_bar.new_tab.bg_color = "none"
-config.color_schemes = {
-	["Tokyo Night Day"] = scheme,
-}
+require("theme").setup(config)
 
 -- Font
 config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
@@ -50,5 +23,9 @@ config.window_padding = {
 	top = 0,
 	bottom = 0,
 }
+
+-- Cursor
+config.default_cursor_style = "SteadyBlock"
+config.cursor_blink_rate = 0
 
 return config
