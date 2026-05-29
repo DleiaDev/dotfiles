@@ -12,6 +12,7 @@ return {
     library = {
       -- Other library configs...
       { path = "wezterm-types", mods = { "wezterm" } },
+      { path = "snacks.nvim", words = { "Snacks" } },
     },
   },
 }

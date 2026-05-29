@@ -8,7 +8,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH="$HOME/bin:$PATH"
 
 # nvim
-NVIM=/home/marko/bin/nvim-0.10.3/bin/nvim
+NVIM=/opt/homebrew/bin/nvim
 alias nvim=$NVIM
 export EDITOR=$NVIM
 export VISUAL=$NVIM
@@ -32,3 +32,6 @@ alias flyctl=/home/marko/.fly/bin/flyctl
 
 # wezterm (flatpak, fedora)
 alias wezterm='flatpak run org.wezfurlong.wezterm'
+
+# colima
+export DOCKER_HOST=unix:///Users/markoilic/.colima/default/docker.sock

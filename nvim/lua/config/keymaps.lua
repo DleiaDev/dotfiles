@@ -8,20 +8,20 @@ vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = "Lazy" })
 -- Lazydocker
 if vim.fn.executable("lazydocker") == 1 then
   vim.keymap.set("n", "<leader>ld", function()
-    Snacks.terminal("lazydocker", { esc_esc = false, ctrl_hjkl = false })
+    Snacks.terminal.toggle("lazydocker")
   end, { desc = "Lazydocker" })
 end
 
 -- Lazysql
 if vim.fn.executable("lazysql") == 1 then
   vim.keymap.set("n", "<leader>ls", function()
-    Snacks.terminal("lazysql", { esc_esc = false, ctrl_hjkl = false })
+    Snacks.terminal.toggle("lazysql")
   end, { desc = "Lazysql" })
 end
 
 -- Posting
 if vim.fn.executable("posting") == 1 then
   vim.keymap.set("n", "<leader>lp", function()
-    Snacks.terminal("posting", { esc_esc = false, ctrl_hjkl = false })
+    Snacks.terminal.toggle("posting")
   end, { desc = "Posting" })
 end
