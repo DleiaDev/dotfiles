@@ -1,40 +1,41 @@
-local wezterm = require("wezterm") --[[@as Wezterm]]
+---@type Wezterm
+local wezterm = require("wezterm")
 
-local config = {}
+---@type Config
+local config = wezterm.config_builder()
 
-if wezterm.config_builder then
-	config = wezterm.config_builder()
-end
-
--- wezterm.gui is not available to the mux server, so take care to
--- do something reasonable when this config is evaluated by the mux
+---@return "Light" | "Dark"
 local function get_appearance()
+	-- wezterm.gui is not available to the mux server
 	if wezterm.gui then
 		return wezterm.gui.get_appearance()
 	end
 	return "Dark"
 end
 
-local function scheme_for_appearance(appearance)
-	if appearance:find("Dark") then
-		return "Tokyo Night"
-	else
-		return "Tokyo Night Day"
-	end
+---@param appearance "Light" | "Dark"
+---@return string
+local function get_color_scheme(appearance)
+	return "Tokyo Night Day"
+	-- if appearance == "Light" then
+	-- 	return "Tokyo Night"
+	-- else
+	-- 	return "Tokyo Night Day"
+	-- end
 end
 
 -- Colors
-config.color_scheme = scheme_for_appearance(get_appearance())
-config.colors = {
-	tab_bar = {
-		background = "none",
-	},
+config.color_scheme = get_color_scheme(get_appearance())
+local scheme = wezterm.get_builtin_color_schemes()[config.color_scheme] ---@type Palette
+scheme.tab_bar.background = "none"
+scheme.tab_bar.new_tab.bg_color = "none"
+config.color_schemes = {
+	["Tokyo Night Day"] = scheme,
 }
 
-config.font = wezterm.font_with_fallback({
-	{ family = "JetBrainsMono NF", scale = 1.27, weight = "Medium" },
-	-- { family = ... }
-})
+-- Font
+config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
+config.font_size = 15
 
 -- Tab
 config.use_fancy_tab_bar = false
