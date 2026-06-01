@@ -16,7 +16,11 @@ config.hide_tab_bar_if_only_one_tab = true
 config.tab_bar_at_bottom = true
 
 -- Window
-config.window_decorations = "RESIZE"
+if string.find(wezterm.target_triple, "linux") then
+	config.window_decorations = "NONE"
+else
+	config.window_decorations = "RESIZE"
+end
 config.window_padding = {
 	left = 0,
 	right = 0,
