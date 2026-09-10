@@ -6,3 +6,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
   pattern = ".swcrc",
   command = "setfiletype json",
 })
+
+-- Keep the colorscheme in sync with WezTerm's light/dark appearance.
+require("config.theme")

@@ -10,22 +10,24 @@ local schemes = {
 	light = "Tokyo Night Day",
 }
 
-local MODE_FILE = "/tmp/wezterm_mode"
+-- Current appearance is mirrored here so terminal programs (Neovim) can follow
+-- along. WezTerm re-runs the config on every OS light/dark switch, so this file
+-- is rewritten in place each time.
+local APPEARANCE_FILE = (os.getenv("HOME") or wezterm.home_dir) .. "/.cache/wezterm/appearance"
 
+---Resolve the current macOS appearance. WezTerm reloads the config
+---automatically whenever the OS light/dark setting changes, so reading
+---this in `M.setup` is enough to keep every window in sync.
 ---@return Mode
-local function read_mode()
-	local file = io.open(MODE_FILE, "r")
-	if not file then
-		return "dark"
-	end
-	local mode = file:read("*l")
-	file:close()
-	return (mode == "light" or mode == "dark") and mode or "dark"
+local function system_mode()
+	local appearance = wezterm.gui and wezterm.gui.get_appearance() or "Dark"
+	return appearance:find("Dark") and "dark" or "light"
 end
 
 ---@param mode Mode
-local function write_mode(mode)
-	local file = io.open(MODE_FILE, "w")
+local function write_appearance(mode)
+	os.execute('mkdir -p "' .. APPEARANCE_FILE:match("(.*)/") .. '"')
+	local file = io.open(APPEARANCE_FILE, "w")
 	if file then
 		file:write(mode)
 		file:close()
@@ -50,9 +52,12 @@ M.setup = function(config)
 		config.color_schemes[name] = apply_tab_bar(builtin[name])
 	end
 
-	local initial_mode = read_mode()
-	config.color_scheme = schemes[initial_mode]
+	local mode = system_mode()
+	config.color_scheme = schemes[mode]
+	write_appearance(mode)
 
+	-- Per-window manual override, e.g. to temporarily flip a single window.
+	-- Cleared on the next config reload (OS appearance change).
 	table.insert(config.keys, {
 		key = "F1",
 		mods = "CMD",
@@ -62,10 +67,8 @@ M.setup = function(config)
 			local next_mode = current == schemes.dark and "light" or "dark"
 			overrides.color_scheme = schemes[next_mode]
 			window:set_config_overrides(overrides)
-			write_mode(next_mode)
 		end),
 	})
 end
 
 return M
-
