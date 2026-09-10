@@ -22,6 +22,7 @@ end
 -- Posting
 if vim.fn.executable("posting") == 1 then
   vim.keymap.set("n", "<leader>lp", function()
-    Snacks.terminal.toggle("posting")
+    local theme = vim.o.background == "light" and "solarized-light" or "galaxy"
+    Snacks.terminal.toggle("posting --collection .", { env = { POSTING_THEME = theme } })
   end, { desc = "Posting" })
 end
