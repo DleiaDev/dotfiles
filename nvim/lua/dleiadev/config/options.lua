@@ -28,3 +28,16 @@ vim.opt.showmatch = true
 vim.opt.matchtime = 2
 vim.opt.title = true
 vim.opt.fillchars:append({ diff = "╱" })
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.path:append("**")
+vim.opt.wildmode = { "longest:full", "full" }
+vim.opt.wildignore:append({ "*/node_modules/**", "*.o", "*.obj", "*.pyc", "*.class", "*.jar" })
+vim.opt.swapfile = false
+vim.opt.writebackup = false
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.expand("~/.cache/nvim/undodir")
+vim.opt.updatetime = 300
+vim.opt.timeoutlen = 500
+vim.opt.ttimeoutlen = 0
