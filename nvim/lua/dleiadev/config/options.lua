@@ -28,6 +28,8 @@ vim.opt.showmatch = true
 vim.opt.matchtime = 2
 vim.opt.title = true
 vim.opt.fillchars:append({ diff = "╱" })
+vim.opt.showtabline = 1
+vim.opt.tabline = "%!v:lua.DleiaDev.tabline.render()"
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
