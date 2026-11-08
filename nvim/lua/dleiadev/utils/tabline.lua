@@ -32,6 +32,14 @@ local function truncate(name)
 	return name
 end
 
+local function truncate_left(path)
+	local len = vim.fn.strchars(path)
+	if len > MAX_NAME then
+		return "..." .. vim.fn.strcharpart(path, len - CUT_NAME)
+	end
+	return path
+end
+
 ---@param tab integer
 ---@return string
 local function label(tab)
@@ -40,6 +48,8 @@ local function label(tab)
 	local text
 	if vim.bo[buf].buftype == "terminal" then
 		text = "[Terminal]"
+	elseif vim.bo[buf].filetype == "oil" then
+		text = truncate_left(vim.fn.fnamemodify(require("oil").get_current_dir(buf) or "", ":~:s?/$??"))
 	elseif path == "" then
 		text = "[No Name]"
 	else

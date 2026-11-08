@@ -26,3 +26,17 @@ end, { desc = "Notification history" })
 vim.keymap.set("n", ";h", function()
 	Snacks.picker.git_diff()
 end, { desc = "Git hunks" })
+
+vim.keymap.set("n", "sf", function()
+	require("oil").open_float(nil, { preview = {} })
+end, { desc = "File explorer" })
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("dleiadev.oil_keymaps", { clear = true }),
+	pattern = "oil",
+	callback = function(args)
+		local actions = require("oil.actions")
+		vim.keymap.set("n", "h", actions.parent.callback, { buffer = args.buf, desc = "Parent directory" })
+		vim.keymap.set("n", "q", actions.close.callback, { buffer = args.buf, desc = "Close oil" })
+	end,
+})
