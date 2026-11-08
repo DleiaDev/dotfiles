@@ -1,5 +1,6 @@
 vim.pack.add({
 	"https://github.com/folke/tokyonight.nvim",
+	"https://github.com/nvim-mini/mini.icons",
 	"https://github.com/rachartier/tiny-cmdline.nvim",
 })
 
