@@ -3,6 +3,7 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.icons",
 	"https://github.com/rachartier/tiny-cmdline.nvim",
 	"https://github.com/nvim-lualine/lualine.nvim",
+	"https://github.com/b0o/incline.nvim",
 })
 
 require("dleiadev.plugins.colorscheme")

@@ -55,3 +55,30 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "RecordingEnter", "RecordingLeave" 
 		end)
 	end,
 })
+
+require("incline").setup({
+	window = {
+		placement = { vertical = "top", horizontal = "right" },
+		-- Same colors as the tabline: the focused window's tag stands out
+		winhighlight = {
+			active = { Normal = "DleiaDevTabActive" },
+			inactive = { Normal = "DleiaDevTabInactive" },
+		},
+	},
+	hide = {
+		cursorline = "focused_win",
+	},
+	render = function(props)
+		local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+		if name == "" then
+			name = "[No Name]"
+		end
+		local icon = MiniIcons.get("file", name)
+		return {
+			icon,
+			" ",
+			name,
+			vim.bo[props.buf].modified and " [+]" or "",
+		}
+	end,
+})
