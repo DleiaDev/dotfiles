@@ -25,12 +25,14 @@ vim.pack.add({
 	"https://github.com/mason-org/mason.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
+	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
 })
 
 require("dleiadev.plugins.colorscheme")
 require("dleiadev.plugins.ui")
 require("dleiadev.plugins.navigation")
 require("dleiadev.plugins.syntax")
+require("dleiadev.plugins.completion")
 require("dleiadev.plugins.lsp")
 
 require("dleiadev.keymaps")

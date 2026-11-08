@@ -40,7 +40,26 @@ require("lualine").setup({
 			{ "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
 			pretty_path,
 		},
-		lualine_x = { recording, "diagnostics", "diff" },
+		lualine_x = {
+			recording,
+			{
+				"diagnostics",
+				symbols = {
+					error = DleiaDev.icons.diagnostics.Error,
+					warn = DleiaDev.icons.diagnostics.Warn,
+					info = DleiaDev.icons.diagnostics.Info,
+					hint = DleiaDev.icons.diagnostics.Hint,
+				},
+			},
+			{
+				"diff",
+				symbols = {
+					added = DleiaDev.icons.git.added,
+					modified = DleiaDev.icons.git.modified,
+					removed = DleiaDev.icons.git.removed,
+				},
+			},
+		},
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
