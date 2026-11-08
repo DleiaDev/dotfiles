@@ -47,3 +47,48 @@ end, { desc = "Copy relative path with line" })
 map("n", "<leader>yp", function()
 	copy_path(":p")
 end, { desc = "Copy absolute path with line" })
+
+map("x", "<leader>cc", function()
+	local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() })
+	local text = ("```%s\n%s\n```"):format(vim.bo.filetype, table.concat(lines, "\n"))
+	vim.fn.setreg("+", text)
+	vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
+end, { desc = "Copy selection as Markdown code block" })
+
+-- Opens the nearest package.json above the current file (or cwd) in a centered float
+map("n", "<leader>j", function()
+	local start = vim.api.nvim_buf_get_name(0) ~= "" and vim.fn.expand("%:p:h") or vim.fn.getcwd()
+	local file = vim.fs.find("package.json", { upward = true, path = start })[1]
+	if not file then
+		vim.notify("No package.json found", vim.log.levels.WARN)
+		return
+	end
+	local width = math.floor(vim.o.columns * 0.8)
+	local height = math.floor(vim.o.lines * 0.8)
+	local buf = vim.fn.bufadd(file)
+	local win = vim.api.nvim_open_win(buf, true, {
+		relative = "editor",
+		width = width,
+		height = height,
+		col = math.floor((vim.o.columns - width) / 2),
+		row = math.floor((vim.o.lines - height) / 2),
+	})
+	local function close()
+		if vim.api.nvim_win_is_valid(win) then
+			vim.api.nvim_win_close(win, false)
+		end
+	end
+	for _, key in ipairs({ "q", "<Esc>" }) do
+		vim.keymap.set("n", key, close, { buffer = buf, desc = "Close package.json" })
+	end
+	-- The buffer may be opened normally later, so don't leave the close keys on it
+	vim.api.nvim_create_autocmd("WinClosed", {
+		pattern = tostring(win),
+		once = true,
+		callback = function()
+			for _, key in ipairs({ "q", "<Esc>" }) do
+				pcall(vim.keymap.del, "n", key, { buffer = buf })
+			end
+		end,
+	})
+end, { desc = "Open package.json" })
