@@ -1,6 +1,12 @@
 gui:
   mouseEvents: false
   scrollHeight: 30
+os:
+  # Outside Neovim: suspend lazygit and run nvim. Inside, snacks.nvim switches to the
+  # nvim-remote preset, which doesn't suspend, and $NVIM points at the running Neovim:
+  # quit lazygit, focus the window ;g was pressed in, then open the file there.
+  editPreset: nvim
+  edit: 'if [[ -z "$NVIM" ]]; then nvim -- {{filename}}; else nvim --server "$NVIM" --remote-send "q<Cmd>lua pcall(vim.api.nvim_set_current_win, vim.g.lazygit_win)<CR>" && nvim --server "$NVIM" --remote {{filename}}; fi'
 git:
   autoFetch: false
   pagers:
