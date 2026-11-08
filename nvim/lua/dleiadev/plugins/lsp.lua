@@ -34,3 +34,22 @@ vim.lsp.config("*", {
 })
 
 vim.lsp.enable({ "eslint", "oxlint", "lua_ls", "cssls", "vtsls", "tailwindcss", "rust_analyzer" })
+
+local icons = DleiaDev.icons.diagnostics
+vim.diagnostic.config({
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+	virtual_text = {
+		prefix = "•",
+		source = "if_many",
+	},
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = icons.Error,
+			[vim.diagnostic.severity.WARN] = icons.Warn,
+			[vim.diagnostic.severity.INFO] = icons.Info,
+			[vim.diagnostic.severity.HINT] = icons.Hint,
+		},
+	},
+})
