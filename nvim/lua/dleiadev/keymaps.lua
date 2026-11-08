@@ -182,3 +182,29 @@ vim.keymap.set("n", "[c", function()
 		MiniDiff.goto_hunk("prev")
 	end
 end, { desc = "Previous hunk" })
+
+-- Tabs that hold a CodeDiff view, so <leader>dv can close the one it's in
+local codediff_tabs = {}
+vim.api.nvim_create_autocmd("User", {
+	group = vim.api.nvim_create_augroup("dleiadev.codediff_tabs", { clear = true }),
+	pattern = { "CodeDiffOpen", "CodeDiffClose" },
+	callback = function(ev)
+		codediff_tabs[ev.data.tabpage] = ev.match == "CodeDiffOpen" or nil
+	end,
+})
+
+vim.keymap.set("n", "<leader>dv", function()
+	if codediff_tabs[vim.api.nvim_get_current_tabpage()] then
+		vim.cmd.tabclose()
+	else
+		vim.cmd("CodeDiff")
+	end
+end, { desc = "Toggle diff view" })
+vim.keymap.set("n", "<leader>dh", "<cmd>CodeDiff history %<cr>", { desc = "File history" })
+vim.keymap.set("n", "<leader>dH", "<cmd>CodeDiff history<cr>", { desc = "Repo history" })
+
+-- Remembers the window so lazygit's `e` (lazygit/config.yml) opens the file there
+vim.keymap.set("n", ";g", function()
+	vim.g.lazygit_win = vim.api.nvim_get_current_win()
+	Snacks.lazygit()
+end, { desc = "Lazygit" })

@@ -116,4 +116,9 @@ require("snacks").setup({
 			buffers = { jump = { reuse_win = true } },
 		},
 	},
+	lazygit = {
+		theme = {
+			activeBorderColor = { fg = "WarningMsg", bold = true },
+		},
+	},
 })

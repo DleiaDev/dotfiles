@@ -30,6 +30,7 @@ vim.pack.add({
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/craftzdog/mini.diff",
+	"https://github.com/esmuellert/codediff.nvim",
 })
 
 require("dleiadev.plugins.colorscheme")
