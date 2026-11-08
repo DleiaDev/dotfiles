@@ -24,3 +24,7 @@ require("blink.cmp").setup({
 		},
 	},
 })
+
+require("mini.pairs").setup({
+	modes = { insert = true, command = true },
+})
