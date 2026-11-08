@@ -26,3 +26,5 @@ map("n", "<C-m>", "<C-i>", { desc = "Jump forward" })
 
 map("n", "<leader>o", "o<Esc>^Da", { desc = "Open line below without comment" })
 map("n", "<leader>O", "O<Esc>^Da", { desc = "Open line above without comment" })
+
+map("n", "<leader>bd", DleiaDev.editor.close_hidden_buffers, { desc = "Close hidden buffers" })
