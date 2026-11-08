@@ -1,0 +1,16 @@
+gui:
+  mouseEvents: false
+  scrollHeight: 30
+git:
+  autoFetch: false
+  pagers:
+    # Same Tokyonight day/night switch as core.pager in git/.gitconfig
+    - colorArg: always
+      pager: delta --paging=never --features $(defaults read -g AppleInterfaceStyle >/dev/null 2>&1 && echo tokyonight-night || echo tokyonight-day)
+# customCommands:
+#   - key: "C"
+#     command: "git cz"
+#     description: "commit with commitizen"
+#     context: "files"
+#     loadingText: "opening commitizen commit tool"
+#     output: terminal

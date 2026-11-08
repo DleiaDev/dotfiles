@@ -1,0 +1,55 @@
+[core]
+  # Pick Tokyonight day/night based on macOS appearance (evaluated on every run)
+  pager = delta --features $(defaults read -g AppleInterfaceStyle >/dev/null 2>&1 && echo tokyonight-night || echo tokyonight-day)
+
+[interactive]
+  diffFilter = delta --color-only --features $(defaults read -g AppleInterfaceStyle >/dev/null 2>&1 && echo tokyonight-night || echo tokyonight-day)
+
+[delta]
+  line-numbers = true
+  side-by-side = false
+;   features = decorations
+; [delta "interactive"]
+;     keep-plus-minus-markers = true
+; [delta "decorations"]
+;   commit-decoration-style = blue ol
+;   commit-style = raw
+;   file-style = omit
+;   hunk-header-decoration-style = blue box
+;   hunk-header-file-style = red
+;   hunk-header-line-number-style = "#067a00"
+;   hunk-header-style = file line-number syntax
+
+; Colors from tokyonight.nvim extras/delta, syntax themes from bat/themes
+[delta "tokyonight-day"]
+  light = true
+  syntax-theme                  = tokyonight_day
+  minus-style                   = syntax "#dababe"
+  minus-non-emph-style          = syntax "#dababe"
+  minus-emph-style              = syntax "#d59a9d"
+  minus-empty-line-marker-style = syntax "#dababe"
+  line-numbers-minus-style      = "#c47981"
+  plus-style                    = syntax "#b7ced5"
+  plus-non-emph-style           = syntax "#b7ced5"
+  plus-emph-style               = syntax "#95bec7"
+  plus-empty-line-marker-style  = syntax "#b7ced5"
+  line-numbers-plus-style       = "#4197a4"
+  line-numbers-zero-style       = "#a8aecb"
+
+[delta "tokyonight-night"]
+  dark = true
+  syntax-theme                  = tokyonight_night
+  minus-style                   = syntax "#4a272f"
+  minus-non-emph-style          = syntax "#4a272f"
+  minus-emph-style              = syntax "#713137"
+  minus-empty-line-marker-style = syntax "#4a272f"
+  line-numbers-minus-style      = "#914c54"
+  plus-style                    = syntax "#243e4a"
+  plus-non-emph-style           = syntax "#243e4a"
+  plus-emph-style               = syntax "#2c5a66"
+  plus-empty-line-marker-style  = syntax "#243e4a"
+  line-numbers-plus-style       = "#449dab"
+  line-numbers-zero-style       = "#3b4261"
+
+[user]
+	useConfigOnly = true
