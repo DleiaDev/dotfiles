@@ -28,3 +28,22 @@ map("n", "<leader>o", "o<Esc>^Da", { desc = "Open line below without comment" })
 map("n", "<leader>O", "O<Esc>^Da", { desc = "Open line above without comment" })
 
 map("n", "<leader>bd", DleiaDev.editor.close_hidden_buffers, { desc = "Close hidden buffers" })
+
+-- Copies `<path>#L<line>` to the clipboard, for pointing an agent at the exact line
+local function copy_path(modifier)
+	local path = vim.fn.expand("%" .. modifier)
+	if path == "" then
+		vim.notify("Buffer has no file", vim.log.levels.WARN)
+		return
+	end
+	local text = ("%s#L%d"):format(path, vim.fn.line("."))
+	vim.fn.setreg("+", text)
+	vim.notify("Copied " .. text)
+end
+
+map("n", "<leader>yf", function()
+	copy_path(":.")
+end, { desc = "Copy relative path with line" })
+map("n", "<leader>yp", function()
+	copy_path(":p")
+end, { desc = "Copy absolute path with line" })
