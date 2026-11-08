@@ -163,3 +163,22 @@ vim.keymap.set("n", "<leader>gs", toggle_stage_buffer, { desc = "Stage / unstage
 vim.keymap.set("n", "<leader>gh", function()
 	require("gitsigns").stage_hunk()
 end, { desc = "Stage / unstage hunk" })
+
+vim.keymap.set("n", "<leader>gd", function()
+	MiniDiff.toggle_overlay(0)
+end, { desc = "Toggle diff overlay" })
+-- In diff mode, keep the built-in change jumps
+vim.keymap.set("n", "]c", function()
+	if vim.wo.diff then
+		vim.cmd.normal({ "]c", bang = true })
+	else
+		MiniDiff.goto_hunk("next")
+	end
+end, { desc = "Next hunk" })
+vim.keymap.set("n", "[c", function()
+	if vim.wo.diff then
+		vim.cmd.normal({ "[c", bang = true })
+	else
+		MiniDiff.goto_hunk("prev")
+	end
+end, { desc = "Previous hunk" })
