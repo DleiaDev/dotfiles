@@ -28,6 +28,7 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
 	"https://github.com/nvim-mini/mini.pairs",
 	"https://github.com/stevearc/conform.nvim",
+	"https://github.com/lewis6991/gitsigns.nvim",
 })
 
 require("dleiadev.plugins.colorscheme")
@@ -37,5 +38,6 @@ require("dleiadev.plugins.syntax")
 require("dleiadev.plugins.completion")
 require("dleiadev.plugins.lsp")
 require("dleiadev.plugins.formatting")
+require("dleiadev.plugins.git")
 
 require("dleiadev.keymaps")

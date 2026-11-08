@@ -105,3 +105,61 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.keymap.set({ "n", "x" }, "<leader>f", function()
 	require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format" })
+
+-- Opens the file as of the commit that last touched the line, at that line, in a new tab
+local function open_line_commit()
+	local file = vim.api.nvim_buf_get_name(0)
+	local lnum = vim.api.nvim_win_get_cursor(0)[1]
+	local root = vim.fs.root(file, ".git")
+	if not root then
+		vim.notify("Not in a git repository", vim.log.levels.WARN)
+		return
+	end
+	local out = vim.system(
+		{ "git", "blame", "--porcelain", "-L", lnum .. "," .. lnum, "--", file },
+		{ cwd = root, text = true }
+	)
+		:wait()
+	if out.code ~= 0 then
+		vim.notify(vim.trim(out.stderr), vim.log.levels.ERROR)
+		return
+	end
+	local sha, orig_lnum = out.stdout:match("^(%x+) (%d+)")
+	if not sha or sha:match("^0+$") then
+		vim.notify("Line is not committed yet", vim.log.levels.WARN)
+		return
+	end
+	-- The file may have had another name in that commit
+	local path = out.stdout:match("\nfilename ([^\n]+)")
+	require("gitsigns").show(sha .. ":" .. path, { open = "tabnew" }, function(err)
+		if err then
+			vim.notify(err, vim.log.levels.ERROR)
+			return
+		end
+		vim.schedule(function()
+			pcall(vim.api.nvim_win_set_cursor, 0, { tonumber(orig_lnum), 0 })
+		end)
+	end)
+end
+
+-- Stages the whole buffer, or unstages it when nothing is left to stage
+local function toggle_stage_buffer()
+	local gitsigns = require("gitsigns")
+	if vim.tbl_isempty(gitsigns.get_hunks() or {}) then
+		gitsigns.reset_buffer_index()
+	else
+		gitsigns.stage_buffer()
+	end
+end
+
+vim.keymap.set("n", "<leader>gb", function()
+	require("gitsigns").blame_line({ full = true })
+end, { desc = "Blame line" })
+vim.keymap.set("n", "<leader>gB", function()
+	require("gitsigns").blame()
+end, { desc = "Blame buffer" })
+vim.keymap.set("n", "<leader>go", open_line_commit, { desc = "Open file at line's commit" })
+vim.keymap.set("n", "<leader>gs", toggle_stage_buffer, { desc = "Stage / unstage buffer" })
+vim.keymap.set("n", "<leader>gh", function()
+	require("gitsigns").stage_hunk()
+end, { desc = "Stage / unstage hunk" })
