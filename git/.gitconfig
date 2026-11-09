@@ -8,6 +8,7 @@
 [delta]
   line-numbers = true
   side-by-side = false
+  hunk-header-decoration-style = blue
 ;   features = decorations
 ; [delta "interactive"]
 ;     keep-plus-minus-markers = true

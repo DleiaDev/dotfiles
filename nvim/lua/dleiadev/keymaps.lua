@@ -27,6 +27,46 @@ vim.keymap.set("n", ";h", function()
 	Snacks.picker.git_diff()
 end, { desc = "Git hunks" })
 
+-- Same root detection as LazyVim.root(): LSP root, then a .git/lua marker, then cwd
+local function neotree_root()
+	local buf = vim.api.nvim_get_current_buf()
+	local name = vim.api.nvim_buf_get_name(buf)
+	local bufpath = name ~= "" and vim.uv.fs_realpath(name) or nil
+
+	if bufpath then
+		local roots = {}
+		for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
+			if client.name ~= "copilot" then
+				local candidates = { client.root_dir }
+				for _, folder in ipairs(client.workspace_folders or {}) do
+					candidates[#candidates + 1] = vim.uri_to_fname(folder.uri)
+				end
+				for _, path in ipairs(candidates) do
+					path = path and vim.uv.fs_realpath(path)
+					if path and bufpath:find(path, 1, true) == 1 then
+						roots[#roots + 1] = path
+					end
+				end
+			end
+		end
+		table.sort(roots, function(a, b)
+			return #a > #b
+		end)
+		if roots[1] then
+			return roots[1]
+		end
+	end
+
+	local marker = vim.fs.find(function(found)
+		return found == ".git" or found == "lua"
+	end, { path = bufpath or vim.uv.cwd(), upward = true })[1]
+	return marker and vim.fs.dirname(marker) or vim.uv.cwd()
+end
+
+vim.keymap.set("n", "se", function()
+	require("neo-tree.command").execute({ toggle = true, dir = neotree_root() })
+end, { desc = "Toggle file explorer" })
+
 vim.keymap.set("n", "sf", function()
 	require("oil").open_float(nil, { preview = {} })
 end, { desc = "File explorer" })
