@@ -36,6 +36,8 @@ require("conform").setup({
 		lua = { "stylua" },
 		sh = { "shfmt" },
 		fish = { "fish_indent" },
+		terraform = { "terraform_fmt" },
+		["terraform-vars"] = { "terraform_fmt" },
 	},
 	formatters = {
 		oxfmt = { condition = has_oxfmt_config },
