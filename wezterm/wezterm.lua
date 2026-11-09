@@ -34,4 +34,59 @@ config.window_padding = {
 config.default_cursor_style = "SteadyBlock"
 config.cursor_blink_rate = 0
 
+-- Workspaces
+local act = wezterm.action
+
+config.keys = {
+	-- Fuzzy-pick an existing workspace
+	{ key = "s", mods = "CMD|SHIFT", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+
+	-- Create/switch to a workspace by name
+	{
+		key = "n",
+		mods = "CMD|SHIFT",
+		action = act.PromptInputLine({
+			description = "Workspace name:",
+			action = wezterm.action_callback(function(window, pane, line)
+				if line and line ~= "" then
+					window:perform_action(act.SwitchToWorkspace({ name = line }), pane)
+				end
+			end),
+		}),
+	},
+
+	-- Rename the current workspace
+	{
+		key = "e",
+		mods = "CMD|SHIFT",
+		action = act.PromptInputLine({
+			description = "Rename workspace:",
+			action = wezterm.action_callback(function(window, _, line)
+				if line and line ~= "" then
+					wezterm.mux.rename_workspace(window:active_workspace(), line)
+				end
+			end),
+		}),
+	},
+
+	-- Rename the current tab (empty input resets to the default title)
+	{
+		key = "r",
+		mods = "CMD|SHIFT",
+		action = act.PromptInputLine({
+			description = "Tab name:",
+			action = wezterm.action_callback(function(window, _, line)
+				if line then
+					window:active_tab():set_title(line)
+				end
+			end),
+		}),
+	},
+}
+
+-- Show the current workspace name in the tab bar
+wezterm.on("update-right-status", function(window)
+	window:set_right_status(" " .. window:active_workspace() .. " ")
+end)
+
 return config
