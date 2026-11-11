@@ -10,6 +10,7 @@ require("mason-tool-installer").setup({
 		"tailwindcss-language-server",
 		"css-lsp",
 		"rust-analyzer",
+		"terraform-ls",
 		"copilot-language-server",
 		-- Formatters
 		"prettier",
@@ -33,7 +34,16 @@ vim.lsp.config("*", {
 	}),
 })
 
-vim.lsp.enable({ "eslint", "oxlint", "lua_ls", "cssls", "vtsls", "tailwindcss", "rust_analyzer" })
+vim.lsp.enable({
+	"eslint",
+	"oxlint",
+	"lua_ls",
+	"cssls",
+	"vtsls",
+	"tailwindcss",
+	"rust_analyzer",
+	"terraformls",
+})
 
 local icons = DleiaDev.icons.diagnostics
 local severity = vim.diagnostic.severity
