@@ -11,6 +11,7 @@ require("mason-tool-installer").setup({
 		"css-lsp",
 		"rust-analyzer",
 		"terraform-ls",
+		"basedpyright",
 		"copilot-language-server",
 		-- Formatters
 		"prettier",
@@ -43,6 +44,7 @@ vim.lsp.enable({
 	"tailwindcss",
 	"rust_analyzer",
 	"terraformls",
+	"basedpyright",
 })
 
 local icons = DleiaDev.icons.diagnostics
