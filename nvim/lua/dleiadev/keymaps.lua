@@ -1,8 +1,8 @@
-vim.keymap.set("n", "]]", function()
-	Snacks.words.jump(vim.v.count1)
+vim.keymap.set("n", "<M-n>", function()
+	Snacks.words.jump(vim.v.count1, true)
 end, { desc = "Next reference" })
-vim.keymap.set("n", "[[", function()
-	Snacks.words.jump(-vim.v.count1)
+vim.keymap.set("n", "<M-p>", function()
+	Snacks.words.jump(-vim.v.count1, true)
 end, { desc = "Previous reference" })
 
 vim.keymap.set("n", ";f", function()
