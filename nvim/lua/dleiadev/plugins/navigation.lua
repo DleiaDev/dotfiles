@@ -114,3 +114,5 @@ require("oil").setup({
 		border = "rounded",
 	},
 })
+
+require("mini.jump").setup({})

@@ -34,6 +34,10 @@ config.window_padding = {
 config.default_cursor_style = "SteadyBlock"
 config.cursor_blink_rate = 0
 
+-- Keyboard
+-- Kitty keyboard protocol lets Neovim tell <C-i> apart from <Tab> (and <C-m> from <CR>)
+config.enable_kitty_keyboard = true
+
 -- Workspaces
 local act = wezterm.action
 
